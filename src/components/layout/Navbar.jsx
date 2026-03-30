@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Terminal } from 'lucide-react';
+import atsResume from '../../assets/Ats formate.pdf';
+import splitResume from '../../assets/final spilt Format .pdf';
+
 
 const Navbar = ({ resumeFormat, setResumeFormat }) => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -22,7 +25,8 @@ const Navbar = ({ resumeFormat, setResumeFormat }) => {
         { name: 'Contact', href: '#contact' },
     ];
 
-    const resumeLink = resumeFormat === 'ats' ? '/resume-ats.pdf' : '/resume-split.pdf';
+    const resumeLink = resumeFormat === 'ats' ? atsResume : splitResume;
+
 
     return (
         <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-4' : 'py-6'}`}>
@@ -45,19 +49,24 @@ const Navbar = ({ resumeFormat, setResumeFormat }) => {
                     <div className="hidden md:flex items-center gap-8">
                         {/* Format Switcher */}
                         <div className="flex bg-slate-900/50 rounded-lg p-1 border border-white/10 mr-4">
-                            <button
+                            <a
+                                href={atsResume}
+                                download="Abinav_Surya_ATS_Resume.pdf"
                                 onClick={() => setResumeFormat('ats')}
                                 className={`px-2 py-1 text-[10px] uppercase font-bold rounded-md transition-all ${resumeFormat === 'ats' ? 'bg-primary text-background shadow-neon' : 'text-slate-400 hover:text-white'}`}
                             >
                                 ATS
-                            </button>
-                            <button
+                            </a>
+                            <a
+                                href={splitResume}
+                                download="Abinav_Surya_Resume.pdf"
                                 onClick={() => setResumeFormat('split')}
                                 className={`px-2 py-1 text-[10px] uppercase font-bold rounded-md transition-all ${resumeFormat === 'split' ? 'bg-primary text-background shadow-neon' : 'text-slate-400 hover:text-white'}`}
                             >
                                 Split
-                            </button>
+                            </a>
                         </div>
+
 
                         {navLinks.map((link) => (
                             <a
@@ -109,13 +118,13 @@ const Navbar = ({ resumeFormat, setResumeFormat }) => {
                                 </a>
                             ))}
                             <a
-                                href={resumeFormat === 'ats' ? '/resume-ats.pdf' : '/resume-split.pdf'}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                                href={resumeFormat === 'ats' ? atsResume : splitResume}
+                                download
                                 className="btn-primary w-full mt-2 inline-block text-center"
                             >
-                                View Resume
+                                Download Resume
                             </a>
+
                         </div>
                     </motion.div>
                 )}

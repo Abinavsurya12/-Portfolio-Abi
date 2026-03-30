@@ -1,34 +1,52 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, Linkedin, Github, Twitter } from 'lucide-react';
+import { Send, Mail, MapPin, Linkedin, Github, Twitter, AlertCircle } from 'lucide-react';
 
 const Contact = () => {
     const formRef = useRef();
     const [loading, setLoading] = useState(false);
     const [sent, setSent] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [showErrorModal, setShowErrorModal] = useState(false);
+
+    useEffect(() => {
+        // Initialize EmailJS with Public Key from environment variables
+        if (window.emailjs) {
+            window.emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY");
+        }
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
-        const formData = new FormData(formRef.current);
+        // Map form fields to EmailJS template variables
+        const templateParams = {
+            name: formRef.current.name.value,
+            email: formRef.current.email.value,
+            phone: formRef.current.phone.value || 'Not provided',
+            subject: formRef.current.subject.value || 'Portfolio Enquiry',
+            message: formRef.current.message.value
+        };
 
         try {
-            const response = await fetch("https://formspree.io/f/mqakvjzy", {
-                method: "POST",
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
+            const response = await window.emailjs.send(
+                import.meta.env.VITE_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID",
+                import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID",
+                templateParams
+            );
 
-            if (response.ok) {
+            if (response.status === 200) {
                 setSent(true);
+                setShowModal(true);
                 formRef.current.reset();
                 setTimeout(() => setSent(false), 5000);
+            } else {
+                setShowErrorModal(true);
             }
         } catch (error) {
             console.error("Form submission error:", error);
+            setShowErrorModal(true);
         } finally {
             setLoading(false);
         }
@@ -120,14 +138,25 @@ const Contact = () => {
                                 </div>
                             </div>
 
-                            <div className="space-y-2">
-                                <label className="text-xs font-bold uppercase tracking-widest text-slate-500 ml-2">Subject</label>
-                                <input
-                                    type="text"
-                                    name="subject"
-                                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 text-white focus:border-primary/50 focus:outline-none transition-all"
-                                    placeholder="Inquiry about Project"
-                                />
+                            <div className="grid md:grid-cols-2 gap-6">
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold uppercase tracking-widest text-slate-500 ml-2">Phone Number</label>
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 text-white focus:border-primary/50 focus:outline-none transition-all"
+                                        placeholder="+91 98765 43210"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold uppercase tracking-widest text-slate-500 ml-2">Subject</label>
+                                    <input
+                                        type="text"
+                                        name="subject"
+                                        className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 text-white focus:border-primary/50 focus:outline-none transition-all"
+                                        placeholder="Inquiry about Project"
+                                    />
+                                </div>
                             </div>
 
                             <div className="space-y-2">
@@ -156,6 +185,68 @@ const Contact = () => {
                     </motion.div>
                 </div>
             </div>
+
+            {/* Success Modal */}
+            {showModal && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+                        onClick={() => setShowModal(false)}
+                    />
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        className="relative glass-dark p-8 md:p-12 rounded-[2.5rem] border-primary/20 max-w-lg w-full text-center shadow-2xl"
+                    >
+                        <div className="w-20 h-20 bg-green-500/10 border border-green-500/20 rounded-full flex items-center justify-center mx-auto mb-8">
+                            <Send className="text-green-500" size={32} />
+                        </div>
+                        <h3 className="text-3xl font-black text-white mb-4">Thank You!</h3>
+                        <p className="text-slate-400 text-lg mb-10 leading-relaxed">
+                            Thank you for reaching out. Your enquiry has been successfully submitted. I appreciate your trust and will get back to you shortly.
+                        </p>
+                        <button 
+                            onClick={() => setShowModal(false)}
+                            className="btn-primary w-full py-4 text-lg"
+                        >
+                            Got it!
+                        </button>
+                    </motion.div>
+                </div>
+            )}
+
+            {/* Error Modal */}
+            {showErrorModal && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+                        onClick={() => setShowErrorModal(false)}
+                    />
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        className="relative glass-dark p-8 md:p-12 rounded-[2.5rem] border-red-500/20 max-w-lg w-full text-center shadow-2xl"
+                    >
+                        <div className="w-20 h-20 bg-red-500/10 border border-red-500/20 rounded-full flex items-center justify-center mx-auto mb-8">
+                            <AlertCircle className="text-red-500" size={32} />
+                        </div>
+                        <h3 className="text-3xl font-black text-white mb-4">Oops!</h3>
+                        <p className="text-slate-400 text-lg mb-10 leading-relaxed">
+                            Failed to send message. Please try again later.
+                        </p>
+                        <button 
+                            onClick={() => setShowErrorModal(false)}
+                            className="btn-primary w-full py-4 text-lg bg-red-500 hover:bg-red-600 border-red-500 shadow-[0_0_20px_rgba(239,44,44,0.3)]"
+                        >
+                            Close
+                        </button>
+                    </motion.div>
+                </div>
+            )}
         </section>
     );
 };

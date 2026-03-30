@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ChevronRight, Download } from 'lucide-react';
 import passportImg from '../../assets/passportsize.jpg';
+import splitResume from '../../assets/final spilt Format .pdf';
+
 
 const Hero = ({ resumeFormat }) => {
     const containerRef = useRef(null);
@@ -86,18 +88,20 @@ const Hero = ({ resumeFormat }) => {
                                 <ChevronRight className="inline-block ml-2 group-hover:translate-x-1 transition-transform" />
                             </a>
                             <a
-                                href={resumeFormat === 'ats' ? '/resume-ats.pdf' : '/resume-split.pdf'}
-                                download
+                                href={splitResume}
+                                download="Abinav_Surya_Resume.pdf"
                                 className="btn-outline group flex items-center justify-center gap-2"
                             >
                                 <Download className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
                                 Download CV
                             </a>
+
                         </div>
                     </div>
 
                     {/* Right Side: Image */}
-                    <div className="relative hidden lg:flex items-center justify-center">
+                    <div className="relative flex items-center justify-center mt-12 lg:mt-0">
+
                         <motion.div
                             initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
                             animate={{

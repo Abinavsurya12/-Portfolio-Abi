@@ -53,19 +53,21 @@ const About = () => {
                             <span className="text-slate-500">Full-Stack Developer + UI/UX Designer</span>
                         </h3>
                         <p className="text-slate-400 text-lg mb-8 leading-relaxed">
-                            I am a passionate developer dedicated to building high-performance web applications that
-                            don&apos;t just work well, but feel amazing to use. With a strong foundation in both
-                            frontend and backend technologies, I bridge the gap between complex functionality
-                            and intuitive design.
+                            I am a passionate Full Stack Developer and UI/UX Designer with hands-on experience in building modern, responsive web applications. Along with developing projects, I actively work as a freelancer, delivering end-to-end solutions for clients.
+                            <br /><br />
+                            I specialize in UI/UX design, full stack development, and complete project deployment — from initial design to final hosting. I have successfully worked on multiple freelance projects, helping clients build scalable and user-friendly digital products.
+                            <br /><br />
+                            I am always focused on creating clean, efficient, and impactful solutions that provide real value.
                         </p>
+
 
                         <div className="grid grid-cols-2 gap-6 mb-10">
                             <div className="flex flex-col gap-2">
-                                <span className="text-3xl font-black neon-text">3+</span>
+                                <span className="text-3xl font-black neon-text">1+</span>
                                 <span className="text-xs uppercase tracking-widest text-slate-500 font-bold">Years Experience</span>
                             </div>
                             <div className="flex flex-col gap-2">
-                                <span className="text-3xl font-black neon-text">50+</span>
+                                <span className="text-3xl font-black neon-text">30+</span>
                                 <span className="text-xs uppercase tracking-widest text-slate-500 font-bold">Projects Done</span>
                             </div>
                         </div>
