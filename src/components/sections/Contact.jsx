@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, Linkedin, Github, Twitter, AlertCircle } from 'lucide-react';
+import { Send, Mail, Phone, MapPin, Linkedin, Github, Twitter, AlertCircle } from 'lucide-react';
 
 const Contact = () => {
     const formRef = useRef();
@@ -73,6 +73,16 @@ const Contact = () => {
                                 <div>
                                     <span className="text-xs font-bold text-slate-500 tracking-widest block uppercase mb-1">Email Me</span>
                                     <a href="mailto:abinavsuryapm@gmail.com" className="text-xl font-bold text-white hover:text-primary transition-colors">abinavsuryapm@gmail.com</a>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-6 group">
+                                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20 shadow-neon transition-transform group-hover:scale-110">
+                                    <Phone className="text-primary" />
+                                </div>
+                                <div>
+                                    <span className="text-xs font-bold text-slate-500 tracking-widest block uppercase mb-1">Call Me</span>
+                                    <a href="tel:+917010815556" className="text-xl font-bold text-white hover:text-primary transition-colors">+91 7010815556</a>
                                 </div>
                             </div>
 

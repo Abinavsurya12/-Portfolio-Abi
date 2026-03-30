@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Terminal } from 'lucide-react';
+import { Menu, X, Terminal, Download } from 'lucide-react';
 import atsResume from '../../assets/Ats formate.pdf';
 import splitResume from '../../assets/final spilt Format .pdf';
 
@@ -30,20 +30,17 @@ const Navbar = ({ resumeFormat, setResumeFormat }) => {
 
     return (
         <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-4' : 'py-6'}`}>
-            <div className="container mx-auto px-6">
-                <div className={`glass px-6 py-3 rounded-2xl flex items-center justify-between transition-all duration-300 ${isScrolled ? 'bg-black/40 border-primary/20 shadow-neon' : ''}`}>
+            <div className="container mx-auto px-4 sm:px-6">
+                <div className={`glass px-4 sm:px-6 py-3 rounded-2xl flex items-center justify-between transition-all duration-300 ${isScrolled ? 'bg-black/40 border-primary/20 shadow-neon' : ''}`}>
                     {/* Logo */}
-                    <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        className="flex items-center gap-2 cursor-pointer"
-                    >
-                        <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/50 shadow-neon">
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                        <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/50 shadow-neon flex-shrink-0">
                             <Terminal className="text-primary w-6 h-6" />
                         </div>
-                        <span className="text-xl font-bold tracking-tighter neon-text hidden sm:block">
+                        <span className="text-base font-bold tracking-tighter text-[#06b6d4] whitespace-nowrap flex-shrink-0 block">
                             Abinav <span className="text-white">Portfolio</span>
                         </span>
-                    </motion.div>
+                    </div>
 
                     {/* Desktop Links */}
                     <div className="hidden md:flex items-center gap-8">
@@ -104,9 +101,9 @@ const Navbar = ({ resumeFormat, setResumeFormat }) => {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        className="md:hidden absolute top-full left-0 right-0 px-6 py-4"
+                        className="md:hidden absolute top-full left-0 right-0 px-6 py-4 z-[100]"
                     >
-                        <div className="glass-dark rounded-2xl p-6 flex flex-col gap-4 text-center">
+                        <div className="glass-dark rounded-2xl p-6 flex flex-col gap-4 text-center border border-white/10 shadow-2xl backdrop-blur-2xl">
                             {navLinks.map((link) => (
                                 <a
                                     key={link.name}
@@ -117,13 +114,35 @@ const Navbar = ({ resumeFormat, setResumeFormat }) => {
                                     {link.name}
                                 </a>
                             ))}
-                            <a
-                                href={resumeFormat === 'ats' ? atsResume : splitResume}
-                                download
-                                className="btn-primary w-full mt-2 inline-block text-center"
-                            >
-                                Download Resume
-                            </a>
+
+                            {/* Mobile Resume Options */}
+                            <div className="flex flex-col gap-3 mt-2">
+                                <p className="text-xs font-bold text-primary tracking-widest uppercase mb-1">Download Resume</p>
+                                <a
+                                    href={atsResume}
+                                    download="Abinav_Surya_ATS_Resume.pdf"
+                                    onClick={() => {
+                                        setResumeFormat('ats');
+                                        setTimeout(() => setMobileMenuOpen(false), 200);
+                                    }}
+                                    className={`btn-outline w-full py-3 flex items-center justify-center gap-2 ${resumeFormat === 'ats' ? 'border-primary text-primary' : ''}`}
+                                >
+                                    <Download size={18} />
+                                    ATS Format (Recommended)
+                                </a>
+                                <a
+                                    href={splitResume}
+                                    download="Abinav_Surya_Resume.pdf"
+                                    onClick={() => {
+                                        setResumeFormat('split');
+                                        setTimeout(() => setMobileMenuOpen(false), 200);
+                                    }}
+                                    className={`btn-outline w-full py-3 flex items-center justify-center gap-2 ${resumeFormat === 'split' ? 'border-primary text-primary' : ''}`}
+                                >
+                                    <Download size={18} />
+                                    Split Format (Design)
+                                </a>
+                            </div>
 
                         </div>
                     </motion.div>

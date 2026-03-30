@@ -47,12 +47,12 @@ const Hero = ({ resumeFormat }) => {
         <section
             ref={containerRef}
             id="hero"
-            className="relative min-h-screen flex items-center pt-20 overflow-hidden"
+            className="relative min-h-screen flex items-center pt-32 lg:pt-20 overflow-hidden"
         >
             <div className="container mx-auto px-6 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     {/* Left Side: Content */}
-                    <div className="text-left space-y-6">
+                    <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
                         {/* Badge */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.5 }}
@@ -76,26 +76,25 @@ const Hero = ({ resumeFormat }) => {
                         </div>
 
                         {/* Subtitle */}
-                        <p className="hero-subtitle text-lg md:text-xl text-slate-400 mb-8 max-w-xl font-medium leading-relaxed">
+                        <p className="hero-subtitle text-lg md:text-xl text-slate-400 mb-8 max-w-xl mx-auto lg:mx-0 font-medium leading-relaxed">
                             Crafting premium digital experiences for Abinav Surya with a focus on modern
                             <span className="text-primary font-bold"> UI/UX Design</span> and <span className="text-primary font-bold">Scalable Architecture</span>.
                         </p>
 
                         {/* CTA Buttons */}
-                        <div className="hero-cta flex flex-wrap items-center gap-6 pt-4">
-                            <a href="#projects" className="btn-primary group inline-block text-center">
+                        <div className="hero-cta flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6 pt-4">
+                            <a href="#projects" className="btn-primary group inline-block text-center w-full md:w-auto">
                                 View Projects
                                 <ChevronRight className="inline-block ml-2 group-hover:translate-x-1 transition-transform" />
                             </a>
                             <a
                                 href={splitResume}
                                 download="Abinav_Surya_Resume.pdf"
-                                className="btn-outline group flex items-center justify-center gap-2"
+                                className="btn-outline group flex items-center justify-center gap-2 w-full md:w-auto"
                             >
                                 <Download className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
                                 Download CV
                             </a>
-
                         </div>
                     </div>
 
