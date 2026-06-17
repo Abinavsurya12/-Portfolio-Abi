@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ChevronRight, Download } from 'lucide-react';
-import passportImg from '../../assets/passportsize.jpg';
+import profileImg from '../../assets/profile.jpeg';
 import splitResume from '../../assets/final spilt Format .pdf';
 
 
@@ -144,7 +144,7 @@ const Hero = ({ resumeFormat }) => {
                                 className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-white/20 shadow-[0_0_50px_rgba(6,182,212,0.3)] glass transform-gpu"
                             >
                                 <img
-                                    src={passportImg}
+                                    src={profileImg}
                                     alt="Abinav Surya"
                                     className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 ease-in-out"
                                 />
